@@ -2,21 +2,21 @@
 
 A modern streaming platform inspired by popular OTT services.
 
-StreamBox provides a cinematic interface for discovering and watching movies, series, anime, documentaries, and short films.
+StreamBox provides a cinematic interface for discovering and watching movies, series, anime, documentaries, and short films, with personalized recommendations, watch history, watchlists, search, and analytics.
 
 ## Features
 
-* 🎬 Movies and series discovery
-* 🔥 Trending content
+* 🎬 Movies, series, anime, documentaries, and short films
+* 🔥 Trending and popular content
 * ▶️ Continue Watching
 * ❤️ My List / Watchlist
-* 🔎 Search and filtering
-* 🎭 Genre-based browsing
-* 👤 User profiles
+* 🔎 Search, filtering, and genre browsing
+* 👤 User profiles and settings
 * ⭐ Ratings and reviews
 * 🤖 Personalized recommendations
 * 📊 Viewing and content analytics
-* 📱 Responsive design
+* 💾 Persistent watch history with LocalStorage
+* 📱 Responsive OTT-style interface
 
 ## Tech Stack
 
@@ -28,13 +28,23 @@ StreamBox provides a cinematic interface for discovering and watching movies, se
 * JSON
 * LocalStorage
 
+## Architecture
+
+* **React.js** — UI components and application interface
+* **JavaScript** — application logic, state management, search, filtering, playback, watchlist, and history
+* **Python** — analytics and recommendation data generation
+* **JSON** — content, analytics, and recommendation data
+* **LocalStorage** — client-side persistence
+
 ## Deployment
 
 The frontend is designed for deployment on **GitHub Pages**.
 
+The application uses a static frontend architecture, while Python is used to generate analytics and recommendation data that the frontend consumes.
+
 ## Project Status
 
-🚧 Under Development
+✅ Completed
 
 ## License
 
