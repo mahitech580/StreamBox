@@ -39,7 +39,13 @@
         content="dark"
     >
 
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
     <title>StreamBox — Stream Without Limits</title>
+
 
     <!-- =========================================================
          FAVICON
@@ -50,8 +56,9 @@
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23e50914'/%3E%3Cpath d='M39 28v44l36-22z' fill='white'/%3E%3C/svg%3E"
     >
 
+
     <!-- =========================================================
-         EXTERNAL STYLES
+         STYLESHEET
          ========================================================= -->
 
     <link
@@ -61,17 +68,17 @@
 
 </head>
 
+
 <body>
 
     <!-- =========================================================
          APPLICATION ROOT
-         React will control dynamic sections inside this root.
          ========================================================= -->
 
     <div id="root">
 
         <!-- =====================================================
-             APP LOADING STATE
+             APPLICATION LOADING SCREEN
              ===================================================== -->
 
         <div
@@ -81,15 +88,28 @@
         >
 
             <div class="loading-brand">
-                <span class="brand-symbol">▶</span>
-                <span class="brand-name">STREAMBOX</span>
+
+                <span class="brand-symbol">
+                    ▶
+                </span>
+
+                <span class="brand-name">
+                    STREAMBOX
+                </span>
+
             </div>
 
-            <div class="loading-spinner"></div>
+            <div
+                class="loading-spinner"
+                aria-hidden="true"
+            ></div>
 
-            <p>Loading your entertainment...</p>
+            <p>
+                Loading your entertainment...
+            </p>
 
         </div>
+
 
         <!-- =====================================================
              MAIN APPLICATION
@@ -99,6 +119,7 @@
             id="streambox-app"
             class="streambox-app"
         >
+
 
             <!-- =================================================
                  HEADER
@@ -111,7 +132,8 @@
 
                 <div class="header-container">
 
-                    <!-- Brand -->
+
+                    <!-- BRAND -->
 
                     <a
                         href="#home"
@@ -130,7 +152,8 @@
 
                     </a>
 
-                    <!-- Desktop Navigation -->
+
+                    <!-- DESKTOP NAVIGATION -->
 
                     <nav
                         class="main-navigation"
@@ -188,14 +211,16 @@
 
                     </nav>
 
-                    <!-- Header Actions -->
+
+                    <!-- HEADER ACTIONS -->
 
                     <div
                         class="header-actions"
                         id="header-actions"
                     >
 
-                        <!-- Search -->
+
+                        <!-- SEARCH -->
 
                         <button
                             type="button"
@@ -204,10 +229,15 @@
                             aria-label="Search"
                             title="Search"
                         >
-                            <span>⌕</span>
+
+                            <span>
+                                ⌕
+                            </span>
+
                         </button>
 
-                        <!-- Notifications -->
+
+                        <!-- NOTIFICATIONS -->
 
                         <button
                             type="button"
@@ -217,7 +247,9 @@
                             title="Notifications"
                         >
 
-                            <span>♧</span>
+                            <span>
+                                ♧
+                            </span>
 
                             <span
                                 class="notification-count"
@@ -228,7 +260,8 @@
 
                         </button>
 
-                        <!-- Profile -->
+
+                        <!-- PROFILE -->
 
                         <button
                             type="button"
@@ -247,7 +280,8 @@
 
                         </button>
 
-                        <!-- Mobile Menu -->
+
+                        <!-- MOBILE MENU -->
 
                         <button
                             type="button"
@@ -255,7 +289,11 @@
                             id="mobile-menu-button"
                             aria-label="Open menu"
                         >
-                            <span>☰</span>
+
+                            <span>
+                                ☰
+                            </span>
+
                         </button>
 
                     </div>
@@ -292,15 +330,24 @@
 
                 </div>
 
+
                 <nav class="mobile-nav-links">
 
-                    <a href="#home">Home</a>
+                    <a href="#home">
+                        Home
+                    </a>
 
-                    <a href="#movies">Movies</a>
+                    <a href="#movies">
+                        Movies
+                    </a>
 
-                    <a href="#series">Series</a>
+                    <a href="#series">
+                        Series
+                    </a>
 
-                    <a href="#anime">Anime</a>
+                    <a href="#anime">
+                        Anime
+                    </a>
 
                     <a href="#documentaries">
                         Documentaries
@@ -312,6 +359,10 @@
 
                     <a href="#history">
                         Watch History
+                    </a>
+
+                    <a href="#profile">
+                        Profile
                     </a>
 
                     <a href="#settings">
@@ -335,6 +386,7 @@
 
                 <div class="search-overlay-inner">
 
+
                     <div class="search-header">
 
                         <div class="search-title-group">
@@ -349,6 +401,7 @@
 
                         </div>
 
+
                         <button
                             type="button"
                             class="close-button"
@@ -360,6 +413,7 @@
 
                     </div>
 
+
                     <div class="search-input-wrapper">
 
                         <input
@@ -368,6 +422,7 @@
                             class="search-input"
                             placeholder="Search movies, series, anime..."
                             autocomplete="off"
+                            spellcheck="false"
                         >
 
                         <button
@@ -380,6 +435,7 @@
 
                     </div>
 
+
                     <div
                         id="search-suggestions"
                         class="search-suggestions"
@@ -391,11 +447,11 @@
 
                     </div>
 
+
                     <div
                         id="search-results"
                         class="search-results"
-                    >
-                    </div>
+                    ></div>
 
                 </div>
 
@@ -428,6 +484,7 @@
 
                 </div>
 
+
                 <div class="notification-list">
 
                     <article
@@ -445,7 +502,7 @@
                             </strong>
 
                             <p>
-                                12 new titles are trending today.
+                                New titles are trending today.
                             </p>
 
                             <time>
@@ -455,6 +512,7 @@
                         </div>
 
                     </article>
+
 
                     <article
                         class="notification-item unread"
@@ -481,6 +539,7 @@
                         </div>
 
                     </article>
+
 
                     <article
                         class="notification-item"
@@ -543,62 +602,95 @@
 
                 </div>
 
+
                 <div class="profile-menu-divider"></div>
+
 
                 <a
                     href="#profile"
                     class="profile-menu-item"
                 >
-                    <span>👤</span>
+
+                    <span>
+                        👤
+                    </span>
+
                     Profile
+
                 </a>
+
 
                 <a
                     href="#history"
                     class="profile-menu-item"
                 >
-                    <span>🕘</span>
+
+                    <span>
+                        🕘
+                    </span>
+
                     Watch History
+
                 </a>
+
 
                 <a
                     href="#my-list"
                     class="profile-menu-item"
                 >
-                    <span>♥</span>
+
+                    <span>
+                        ♥
+                    </span>
+
                     My List
+
                 </a>
+
 
                 <a
                     href="#settings"
                     class="profile-menu-item"
                 >
-                    <span>⚙</span>
+
+                    <span>
+                        ⚙
+                    </span>
+
                     Settings
+
                 </a>
 
+
                 <div class="profile-menu-divider"></div>
+
 
                 <button
                     type="button"
                     class="profile-menu-item logout-button"
                     id="logout-button"
                 >
-                    <span>↪</span>
+
+                    <span>
+                        ↪
+                    </span>
+
                     Sign Out
+
                 </button>
 
             </aside>
 
 
             <!-- =================================================
-                 PAGE CONTENT
+                 MAIN CONTENT
                  ================================================= -->
 
             <main
                 id="main-content"
                 class="main-content"
             >
+
 
                 <!-- =============================================
                      HOME PAGE
@@ -609,6 +701,7 @@
                     class="page-section active"
                     data-page-section="home"
                 >
+
 
                     <!-- =========================================
                          HERO
@@ -630,17 +723,19 @@
 
                         </div>
 
+
                         <div class="hero-container">
 
                             <div class="hero-content">
 
-                                <div
-                                    class="hero-badge"
-                                >
+                                <div class="hero-badge">
+
                                     <span>
                                         STREAMBOX ORIGINAL
                                     </span>
+
                                 </div>
+
 
                                 <p
                                     class="hero-eyebrow"
@@ -649,12 +744,14 @@
                                     FEATURED THIS WEEK
                                 </p>
 
+
                                 <h1
                                     class="hero-title"
                                     id="hero-title"
                                 >
                                     THE LAST SIGNAL
                                 </h1>
+
 
                                 <div
                                     class="hero-meta"
@@ -679,6 +776,7 @@
 
                                 </div>
 
+
                                 <div
                                     class="hero-rating"
                                     id="hero-rating"
@@ -698,6 +796,7 @@
 
                                 </div>
 
+
                                 <p
                                     class="hero-description"
                                     id="hero-description"
@@ -707,6 +806,7 @@
                                     of events that forces humanity to
                                     question everything it knows.
                                 </p>
+
 
                                 <div
                                     class="hero-genres"
@@ -727,27 +827,38 @@
 
                                 </div>
 
-                                <div
-                                    class="hero-actions"
-                                >
+
+                                <div class="hero-actions">
 
                                     <button
                                         type="button"
                                         class="primary-button"
                                         id="hero-play-button"
                                     >
-                                        <span>▶</span>
+
+                                        <span>
+                                            ▶
+                                        </span>
+
                                         Watch Now
+
                                     </button>
+
 
                                     <button
                                         type="button"
                                         class="secondary-button"
                                         id="hero-list-button"
                                     >
-                                        <span>＋</span>
+
+                                        <span>
+                                            ＋
+                                        </span>
+
                                         My List
+
                                     </button>
+
 
                                     <button
                                         type="button"
@@ -761,6 +872,7 @@
                                 </div>
 
                             </div>
+
 
                             <div
                                 class="hero-slide-indicators"
@@ -803,12 +915,10 @@
 
 
                     <!-- =========================================
-                         QUICK CATEGORY NAVIGATION
+                         CATEGORY NAVIGATION
                          ========================================= -->
 
-                    <section
-                        class="category-navigation-section"
-                    >
+                    <section class="category-navigation-section">
 
                         <div class="content-container">
 
@@ -870,7 +980,7 @@
 
 
                     <!-- =========================================
-                         TRENDING SECTION
+                         TRENDING
                          ========================================= -->
 
                     <section
@@ -894,6 +1004,7 @@
 
                                 </div>
 
+
                                 <div class="section-navigation">
 
                                     <button
@@ -901,7 +1012,7 @@
                                         class="row-arrow"
                                         data-row="trending"
                                         data-direction="prev"
-                                        aria-label="Previous"
+                                        aria-label="Previous trending titles"
                                     >
                                         ‹
                                     </button>
@@ -911,7 +1022,7 @@
                                         class="row-arrow"
                                         data-row="trending"
                                         data-direction="next"
-                                        aria-label="Next"
+                                        aria-label="Next trending titles"
                                     >
                                         ›
                                     </button>
@@ -920,15 +1031,12 @@
 
                             </div>
 
+
                             <div
                                 class="content-row"
                                 id="trending-row"
                                 data-content-row="trending"
-                            >
-
-                                <!-- Cards injected by React/JS -->
-
-                            </div>
+                            ></div>
 
                         </div>
 
@@ -960,6 +1068,7 @@
 
                                 </div>
 
+
                                 <div class="section-navigation">
 
                                     <button
@@ -986,13 +1095,12 @@
 
                             </div>
 
+
                             <div
                                 class="content-row"
                                 id="continue-row"
                                 data-content-row="continue"
-                            >
-
-                            </div>
+                            ></div>
 
                         </div>
 
@@ -1024,6 +1132,7 @@
 
                                 </div>
 
+
                                 <a
                                     href="#movies"
                                     class="view-all-link"
@@ -1034,13 +1143,12 @@
 
                             </div>
 
+
                             <div
                                 class="content-row"
                                 id="popular-movies-row"
                                 data-content-row="popular-movies"
-                            >
-
-                            </div>
+                            ></div>
 
                         </div>
 
@@ -1072,6 +1180,7 @@
 
                                 </div>
 
+
                                 <a
                                     href="#series"
                                     class="view-all-link"
@@ -1082,13 +1191,12 @@
 
                             </div>
 
+
                             <div
                                 class="content-row"
                                 id="popular-series-row"
                                 data-content-row="popular-series"
-                            >
-
-                            </div>
+                            ></div>
 
                         </div>
 
@@ -1120,6 +1228,7 @@
 
                                 </div>
 
+
                                 <a
                                     href="#anime"
                                     class="view-all-link"
@@ -1130,13 +1239,12 @@
 
                             </div>
 
+
                             <div
                                 class="content-row"
                                 id="anime-row"
                                 data-content-row="anime"
-                            >
-
-                            </div>
+                            ></div>
 
                         </div>
 
@@ -1178,13 +1286,12 @@
 
                             </div>
 
+
                             <div
                                 class="content-row"
                                 id="recommendation-row"
                                 data-content-row="recommendations"
-                            >
-
-                            </div>
+                            ></div>
 
                         </div>
 
@@ -1218,13 +1325,12 @@
 
                             </div>
 
+
                             <div
                                 class="content-row"
                                 id="top-rated-row"
                                 data-content-row="top-rated"
-                            >
-
-                            </div>
+                            ></div>
 
                         </div>
 
@@ -1258,13 +1364,12 @@
 
                             </div>
 
+
                             <div
                                 class="content-row"
                                 id="new-releases-row"
                                 data-content-row="new-releases"
-                            >
-
-                            </div>
+                            ></div>
 
                         </div>
 
@@ -1298,6 +1403,7 @@
 
                             </div>
 
+
                             <div class="genre-grid">
 
                                 <button
@@ -1305,87 +1411,134 @@
                                     class="genre-card genre-action"
                                     data-genre="action"
                                 >
+
                                     <span class="genre-icon">
                                         ⚡
                                     </span>
-                                    <span>Action</span>
+
+                                    <span>
+                                        Action
+                                    </span>
+
                                 </button>
+
 
                                 <button
                                     type="button"
                                     class="genre-card genre-thriller"
                                     data-genre="thriller"
                                 >
+
                                     <span class="genre-icon">
                                         ◈
                                     </span>
-                                    <span>Thriller</span>
+
+                                    <span>
+                                        Thriller
+                                    </span>
+
                                 </button>
+
 
                                 <button
                                     type="button"
                                     class="genre-card genre-sci-fi"
                                     data-genre="sci-fi"
                                 >
+
                                     <span class="genre-icon">
                                         ✦
                                     </span>
-                                    <span>Sci-Fi</span>
+
+                                    <span>
+                                        Sci-Fi
+                                    </span>
+
                                 </button>
+
 
                                 <button
                                     type="button"
                                     class="genre-card genre-drama"
                                     data-genre="drama"
                                 >
+
                                     <span class="genre-icon">
                                         ◉
                                     </span>
-                                    <span>Drama</span>
+
+                                    <span>
+                                        Drama
+                                    </span>
+
                                 </button>
+
 
                                 <button
                                     type="button"
                                     class="genre-card genre-comedy"
                                     data-genre="comedy"
                                 >
+
                                     <span class="genre-icon">
                                         ☺
                                     </span>
-                                    <span>Comedy</span>
+
+                                    <span>
+                                        Comedy
+                                    </span>
+
                                 </button>
+
 
                                 <button
                                     type="button"
                                     class="genre-card genre-romance"
                                     data-genre="romance"
                                 >
+
                                     <span class="genre-icon">
                                         ♥
                                     </span>
-                                    <span>Romance</span>
+
+                                    <span>
+                                        Romance
+                                    </span>
+
                                 </button>
+
 
                                 <button
                                     type="button"
                                     class="genre-card genre-horror"
                                     data-genre="horror"
                                 >
+
                                     <span class="genre-icon">
                                         ☠
                                     </span>
-                                    <span>Horror</span>
+
+                                    <span>
+                                        Horror
+                                    </span>
+
                                 </button>
+
 
                                 <button
                                     type="button"
                                     class="genre-card genre-documentary"
                                     data-genre="documentary"
                                 >
+
                                     <span class="genre-icon">
                                         ▣
                                     </span>
-                                    <span>Documentary</span>
+
+                                    <span>
+                                        Documentary
+                                    </span>
+
                                 </button>
 
                             </div>
@@ -1426,13 +1579,17 @@
 
                         </div>
 
+
                         <div class="filter-toolbar">
 
                             <div class="filter-group">
 
-                                <label for="movie-genre-filter">
+                                <label
+                                    for="movie-genre-filter"
+                                >
                                     Genre
                                 </label>
+
 
                                 <select
                                     id="movie-genre-filter"
@@ -1475,11 +1632,15 @@
 
                             </div>
 
+
                             <div class="filter-group">
 
-                                <label for="movie-sort">
+                                <label
+                                    for="movie-sort"
+                                >
                                     Sort
                                 </label>
+
 
                                 <select
                                     id="movie-sort"
@@ -1508,11 +1669,11 @@
 
                         </div>
 
+
                         <div
                             class="catalog-grid"
                             id="movies-grid"
-                        >
-                        </div>
+                        ></div>
 
                     </div>
 
@@ -1547,6 +1708,7 @@
 
                         </div>
 
+
                         <div class="series-feature-banner">
 
                             <div class="series-feature-content">
@@ -1566,6 +1728,7 @@
                                 <button
                                     type="button"
                                     class="primary-button"
+                                    id="series-feature-play"
                                 >
                                     ▶ Watch Series
                                 </button>
@@ -1574,11 +1737,11 @@
 
                         </div>
 
+
                         <div
                             class="catalog-grid"
                             id="series-grid"
-                        >
-                        </div>
+                        ></div>
 
                     </div>
 
@@ -1614,6 +1777,7 @@
 
                         </div>
 
+
                         <div class="anime-feature-banner">
 
                             <div class="anime-feature-content">
@@ -1633,6 +1797,7 @@
                                 <button
                                     type="button"
                                     class="primary-button"
+                                    id="anime-feature-play"
                                 >
                                     ▶ Start Watching
                                 </button>
@@ -1641,11 +1806,11 @@
 
                         </div>
 
+
                         <div
                             class="catalog-grid"
                             id="anime-grid"
-                        >
-                        </div>
+                        ></div>
 
                     </div>
 
@@ -1681,11 +1846,11 @@
 
                         </div>
 
+
                         <div
                             class="catalog-grid"
                             id="documentaries-grid"
-                        >
-                        </div>
+                        ></div>
 
                     </div>
 
@@ -1720,11 +1885,12 @@
 
                         </div>
 
+
                         <div
                             id="my-list-grid"
                             class="catalog-grid"
-                        >
-                        </div>
+                        ></div>
+
 
                         <div
                             id="my-list-empty"
@@ -1786,11 +1952,12 @@
 
                         </div>
 
+
                         <div
                             id="history-grid"
                             class="catalog-grid"
-                        >
-                        </div>
+                        ></div>
+
 
                         <div
                             id="history-empty"
@@ -1828,9 +1995,12 @@
 
                     <div class="content-container page-container">
 
+
                         <div class="profile-page-header">
 
-                            <div class="profile-avatar profile-avatar-xl">
+                            <div
+                                class="profile-avatar profile-avatar-xl"
+                            >
                                 M
                             </div>
 
@@ -1852,7 +2022,9 @@
 
                         </div>
 
+
                         <div class="profile-stat-grid">
+
 
                             <article class="profile-stat-card">
 
@@ -1860,7 +2032,9 @@
                                     🎬
                                 </span>
 
-                                <strong id="profile-watched-count">
+                                <strong
+                                    id="profile-watched-count"
+                                >
                                     0
                                 </strong>
 
@@ -1870,13 +2044,16 @@
 
                             </article>
 
+
                             <article class="profile-stat-card">
 
                                 <span class="profile-stat-icon">
                                     ♥
                                 </span>
 
-                                <strong id="profile-list-count">
+                                <strong
+                                    id="profile-list-count"
+                                >
                                     0
                                 </strong>
 
@@ -1886,13 +2063,16 @@
 
                             </article>
 
+
                             <article class="profile-stat-card">
 
                                 <span class="profile-stat-icon">
                                     ★
                                 </span>
 
-                                <strong id="profile-average-rating">
+                                <strong
+                                    id="profile-average-rating"
+                                >
                                     0.0
                                 </strong>
 
@@ -1902,13 +2082,16 @@
 
                             </article>
 
+
                             <article class="profile-stat-card">
 
                                 <span class="profile-stat-icon">
                                     ⏱
                                 </span>
 
-                                <strong id="profile-watch-time">
+                                <strong
+                                    id="profile-watch-time"
+                                >
                                     0h
                                 </strong>
 
@@ -1920,11 +2103,13 @@
 
                         </div>
 
+
                         <section class="profile-preferences">
 
                             <h2>
                                 Preferences
                             </h2>
+
 
                             <div class="preference-row">
 
@@ -1941,6 +2126,7 @@
 
                                 </div>
 
+
                                 <label class="toggle-switch">
 
                                     <input
@@ -1949,11 +2135,14 @@
                                         checked
                                     >
 
-                                    <span class="toggle-slider"></span>
+                                    <span
+                                        class="toggle-slider"
+                                    ></span>
 
                                 </label>
 
                             </div>
+
 
                             <div class="preference-row">
 
@@ -1969,6 +2158,7 @@
 
                                 </div>
 
+
                                 <label class="toggle-switch">
 
                                     <input
@@ -1976,7 +2166,9 @@
                                         id="preview-toggle"
                                     >
 
-                                    <span class="toggle-slider"></span>
+                                    <span
+                                        class="toggle-slider"
+                                    ></span>
 
                                 </label>
 
@@ -2017,7 +2209,11 @@
 
                         </div>
 
+
                         <div class="settings-layout">
+
+
+                            <!-- SETTINGS NAVIGATION -->
 
                             <aside class="settings-sidebar">
 
@@ -2055,7 +2251,13 @@
 
                             </aside>
 
+
+                            <!-- SETTINGS CONTENT -->
+
                             <div class="settings-content">
+
+
+                                <!-- ACCOUNT -->
 
                                 <section
                                     class="settings-panel active"
@@ -2066,9 +2268,10 @@
                                         Account
                                     </h2>
 
+
                                     <div class="settings-field">
 
-                                        <label>
+                                        <label for="display-name">
                                             Display Name
                                         </label>
 
@@ -2076,13 +2279,15 @@
                                             type="text"
                                             id="display-name"
                                             value="Mahendra"
+                                            autocomplete="name"
                                         >
 
                                     </div>
 
+
                                     <div class="settings-field">
 
-                                        <label>
+                                        <label for="email">
                                             Email
                                         </label>
 
@@ -2090,9 +2295,11 @@
                                             type="email"
                                             id="email"
                                             value="user@example.com"
+                                            autocomplete="email"
                                         >
 
                                     </div>
+
 
                                     <button
                                         type="button"
@@ -2104,6 +2311,9 @@
 
                                 </section>
 
+
+                                <!-- PLAYBACK -->
+
                                 <section
                                     class="settings-panel"
                                     data-settings-panel="playback"
@@ -2113,11 +2323,13 @@
                                         Playback
                                     </h2>
 
+
                                     <div class="settings-option">
 
                                         <span>
                                             Video quality
                                         </span>
+
 
                                         <select
                                             id="video-quality"
@@ -2144,11 +2356,13 @@
 
                                     </div>
 
+
                                     <div class="settings-option">
 
                                         <span>
                                             Data usage
                                         </span>
+
 
                                         <select
                                             id="data-usage"
@@ -2173,6 +2387,9 @@
 
                                 </section>
 
+
+                                <!-- NOTIFICATIONS -->
+
                                 <section
                                     class="settings-panel"
                                     data-settings-panel="notifications"
@@ -2181,6 +2398,7 @@
                                     <h2>
                                         Notifications
                                     </h2>
+
 
                                     <div class="settings-option">
 
@@ -2197,18 +2415,23 @@
 
                                         </div>
 
+
                                         <label class="toggle-switch">
 
                                             <input
                                                 type="checkbox"
+                                                id="new-release-notifications"
                                                 checked
                                             >
 
-                                            <span class="toggle-slider"></span>
+                                            <span
+                                                class="toggle-slider"
+                                            ></span>
 
                                         </label>
 
                                     </div>
+
 
                                     <div class="settings-option">
 
@@ -2225,20 +2448,27 @@
 
                                         </div>
 
+
                                         <label class="toggle-switch">
 
                                             <input
                                                 type="checkbox"
+                                                id="recommendation-notifications"
                                                 checked
                                             >
 
-                                            <span class="toggle-slider"></span>
+                                            <span
+                                                class="toggle-slider"
+                                            ></span>
 
                                         </label>
 
                                     </div>
 
                                 </section>
+
+
+                                <!-- PRIVACY -->
 
                                 <section
                                     class="settings-panel"
@@ -2248,6 +2478,7 @@
                                     <h2>
                                         Privacy
                                     </h2>
+
 
                                     <div class="settings-option">
 
@@ -2264,14 +2495,18 @@
 
                                         </div>
 
+
                                         <label class="toggle-switch">
 
                                             <input
                                                 type="checkbox"
+                                                id="personalized-recommendations"
                                                 checked
                                             >
 
-                                            <span class="toggle-slider"></span>
+                                            <span
+                                                class="toggle-slider"
+                                            ></span>
 
                                         </label>
 
@@ -2307,29 +2542,34 @@
                     aria-labelledby="details-title"
                 >
 
+
                     <button
                         type="button"
                         class="modal-close"
                         id="close-details"
-                        aria-label="Close"
+                        aria-label="Close details"
                     >
                         ×
                     </button>
+
 
                     <div
                         class="details-backdrop"
                         id="details-backdrop"
                     ></div>
 
+
                     <div class="details-content">
+
 
                         <div
                             class="details-poster"
                             id="details-poster"
-                        >
-                        </div>
+                        ></div>
+
 
                         <div class="details-main">
+
 
                             <div class="details-topline">
 
@@ -2358,11 +2598,13 @@
 
                             </div>
 
+
                             <h2
                                 id="details-title"
                             >
                                 The Last Signal
                             </h2>
+
 
                             <div class="details-rating">
 
@@ -2382,6 +2624,7 @@
 
                             </div>
 
+
                             <p
                                 id="details-description"
                                 class="details-description"
@@ -2390,11 +2633,12 @@
                                 from deep space.
                             </p>
 
+
                             <div
                                 id="details-genres"
                                 class="details-genres"
-                            >
-                            </div>
+                            ></div>
+
 
                             <div class="details-actions">
 
@@ -2406,6 +2650,7 @@
                                     ▶ Play
                                 </button>
 
+
                                 <button
                                     type="button"
                                     class="secondary-button"
@@ -2416,7 +2661,9 @@
 
                             </div>
 
+
                             <div class="details-info-grid">
+
 
                                 <div>
 
@@ -2424,11 +2671,14 @@
                                         Director
                                     </span>
 
-                                    <strong id="details-director">
+                                    <strong
+                                        id="details-director"
+                                    >
                                         —
                                     </strong>
 
                                 </div>
+
 
                                 <div>
 
@@ -2436,11 +2686,14 @@
                                         Cast
                                     </span>
 
-                                    <strong id="details-cast">
+                                    <strong
+                                        id="details-cast"
+                                    >
                                         —
                                     </strong>
 
                                 </div>
+
 
                                 <div>
 
@@ -2448,11 +2701,14 @@
                                         Language
                                     </span>
 
-                                    <strong id="details-language">
+                                    <strong
+                                        id="details-language"
+                                    >
                                         English
                                     </strong>
 
                                 </div>
+
 
                                 <div>
 
@@ -2472,6 +2728,7 @@
 
                     </div>
 
+
                     <div class="similar-content">
 
                         <div class="section-header">
@@ -2482,11 +2739,11 @@
 
                         </div>
 
+
                         <div
                             id="similar-row"
                             class="content-row"
-                        >
-                        </div>
+                        ></div>
 
                     </div>
 
@@ -2496,7 +2753,7 @@
 
 
             <!-- =================================================
-                 VIDEO PLAYER MODAL
+                 VIDEO PLAYER
                  ================================================= -->
 
             <div
@@ -2507,14 +2764,16 @@
 
                 <div class="player-container">
 
+
                     <button
                         type="button"
                         class="player-close"
                         id="close-player"
-                        aria-label="Close player"
+                        aria-label="Close video player"
                     >
                         ×
                     </button>
+
 
                     <div
                         class="video-wrapper"
@@ -2538,14 +2797,18 @@
 
                         </video>
 
+
                         <div
                             id="video-placeholder"
                             class="video-placeholder"
                         >
 
-                            <div class="video-placeholder-icon">
+                            <div
+                                class="video-placeholder-icon"
+                            >
                                 ▶
                             </div>
+
 
                             <h2
                                 id="player-title"
@@ -2553,9 +2816,11 @@
                                 StreamBox Player
                             </h2>
 
+
                             <p>
                                 Video playback will appear here.
                             </p>
+
 
                             <button
                                 type="button"
@@ -2568,6 +2833,7 @@
                         </div>
 
                     </div>
+
 
                     <div class="player-information">
 
@@ -2585,28 +2851,34 @@
 
                         </div>
 
+
                         <div class="player-actions">
 
                             <button
                                 type="button"
                                 class="player-action-button"
                                 id="player-like"
+                                aria-label="Like"
                             >
                                 ♡
                             </button>
+
 
                             <button
                                 type="button"
                                 class="player-action-button"
                                 id="player-add-list"
+                                aria-label="Add to list"
                             >
                                 ＋
                             </button>
+
 
                             <button
                                 type="button"
                                 class="player-action-button"
                                 id="player-more"
+                                aria-label="More options"
                             >
                                 ⋯
                             </button>
@@ -2621,7 +2893,7 @@
 
 
             <!-- =================================================
-                 LOGIN / PROFILE SELECTOR
+                 PROFILE SELECTOR
                  ================================================= -->
 
             <div
@@ -2632,7 +2904,9 @@
 
                 <div class="profile-selector-inner">
 
+
                     <div class="selector-brand">
+
                         <span class="brand-symbol">
                             ▶
                         </span>
@@ -2640,13 +2914,17 @@
                         <span class="brand-name">
                             STREAMBOX
                         </span>
+
                     </div>
+
 
                     <h1>
                         Who's watching?
                     </h1>
 
+
                     <div class="profile-grid">
+
 
                         <button
                             type="button"
@@ -2654,7 +2932,9 @@
                             data-profile="mahendra"
                         >
 
-                            <span class="profile-avatar profile-color-one">
+                            <span
+                                class="profile-avatar profile-color-one"
+                            >
                                 M
                             </span>
 
@@ -2664,13 +2944,16 @@
 
                         </button>
 
+
                         <button
                             type="button"
                             class="profile-option"
                             data-profile="guest"
                         >
 
-                            <span class="profile-avatar profile-color-two">
+                            <span
+                                class="profile-avatar profile-color-two"
+                            >
                                 G
                             </span>
 
@@ -2680,13 +2963,16 @@
 
                         </button>
 
+
                         <button
                             type="button"
                             class="profile-option"
                             data-profile="kids"
                         >
 
-                            <span class="profile-avatar profile-color-three">
+                            <span
+                                class="profile-avatar profile-color-three"
+                            >
                                 K
                             </span>
 
@@ -2696,13 +2982,16 @@
 
                         </button>
 
+
                         <button
                             type="button"
                             class="profile-option add-profile"
                             data-profile="new"
                         >
 
-                            <span class="profile-avatar add-avatar">
+                            <span
+                                class="profile-avatar add-avatar"
+                            >
                                 +
                             </span>
 
@@ -2748,7 +3037,7 @@
 
 
             <!-- =================================================
-                 COOKIE / STORAGE NOTICE
+                 STORAGE NOTICE
                  ================================================= -->
 
             <div
@@ -2768,6 +3057,7 @@
                     </p>
 
                 </div>
+
 
                 <button
                     type="button"
@@ -2791,7 +3081,11 @@
 
                 <div class="content-container">
 
+
                     <div class="footer-main">
+
+
+                        <!-- BRAND -->
 
                         <div class="footer-brand-column">
 
@@ -2810,28 +3104,36 @@
 
                             </a>
 
+
                             <p>
                                 Discover stories worth watching.
                             </p>
 
+
                             <div class="social-links">
 
                                 <a
-                                    href="#"
+                                    href="https://github.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label="GitHub"
                                 >
                                     GH
                                 </a>
 
                                 <a
-                                    href="#"
+                                    href="https://www.linkedin.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label="LinkedIn"
                                 >
                                     IN
                                 </a>
 
                                 <a
-                                    href="#"
+                                    href="https://www.youtube.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label="YouTube"
                                 >
                                     YT
@@ -2840,6 +3142,9 @@
                             </div>
 
                         </div>
+
+
+                        <!-- EXPLORE -->
 
                         <div class="footer-column">
 
@@ -2865,6 +3170,9 @@
 
                         </div>
 
+
+                        <!-- YOUR SPACE -->
+
                         <div class="footer-column">
 
                             <h3>
@@ -2889,31 +3197,35 @@
 
                         </div>
 
+
+                        <!-- STREAMBOX -->
+
                         <div class="footer-column">
 
                             <h3>
                                 StreamBox
                             </h3>
 
-                            <a href="#about">
+                            <a href="#home">
                                 About
                             </a>
 
-                            <a href="#help">
+                            <a href="#home">
                                 Help Center
                             </a>
 
-                            <a href="#privacy">
+                            <a href="#home">
                                 Privacy
                             </a>
 
-                            <a href="#terms">
+                            <a href="#home">
                                 Terms
                             </a>
 
                         </div>
 
                     </div>
+
 
                     <div class="footer-bottom">
 
@@ -2938,25 +3250,29 @@
 
 
     <!-- =========================================================
-         REACT
+         REACT 18
+         Production Builds
          ========================================================= -->
 
     <script
         crossorigin
-        src="https://unpkg.com/react@18/umd/react.development.js"
+        src="https://unpkg.com/react@18/umd/react.production.min.js"
     ></script>
 
     <script
         crossorigin
-        src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+        src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
     ></script>
 
 
     <!-- =========================================================
-         APPLICATION FILES
+         STREAMBOX APPLICATION FILES
+         IMPORTANT LOAD ORDER
          ========================================================= -->
 
     <script src="data.js"></script>
+
+    <script src="analytics.js"></script>
 
     <script src="app.js"></script>
 
