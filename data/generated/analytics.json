@@ -1,0 +1,85 @@
+{
+    "project": "StreamBox",
+    "generated_at": "2026-09-16T00:00:00",
+    "summary": {
+        "total_views": 6,
+        "completion_rate": 66.67,
+        "average_watch_percent": 91.17,
+        "average_user_rating": 9.0,
+        "favorite_genres": [
+            [
+                "sci-fi",
+                2
+            ],
+            [
+                "thriller",
+                2
+            ],
+            [
+                "anime",
+                1
+            ],
+            [
+                "action",
+                1
+            ],
+            [
+                "adventure",
+                1
+            ]
+        ],
+        "content_types": {
+            "movie": 2,
+            "series": 2,
+            "anime": 1,
+            "documentary": 1
+        },
+        "daily_activity": {
+            "2026-09-12": 1,
+            "2026-09-13": 1,
+            "2026-09-14": 2,
+            "2026-09-15": 2
+        },
+        "rating_distribution": {
+            "10": 1,
+            "9": 4,
+            "8": 1
+        }
+    },
+    "user_profile": {
+        "favorite_genres": [
+            "Sci-Fi",
+            "Thriller",
+            "Anime",
+            "Action",
+            "Adventure"
+        ],
+        "favorite_content_type": "movie"
+    },
+    "content_engagement": [
+        {
+            "content_id": 1,
+            "title": "The Last Signal",
+            "views": 1,
+            "average_watch_percent": 100.0,
+            "average_rating": 9.0,
+            "engagement_score": 96.5
+        },
+        {
+            "content_id": 201,
+            "title": "Beyond The Horizon",
+            "views": 1,
+            "average_watch_percent": 72.0,
+            "average_rating": 9.0,
+            "engagement_score": 82.5
+        },
+        {
+            "content_id": 301,
+            "title": "Neon Eclipse",
+            "views": 1,
+            "average_watch_percent": 100.0,
+            "average_rating": 10.0,
+            "engagement_score": 99.4
+        }
+    ]
+}
