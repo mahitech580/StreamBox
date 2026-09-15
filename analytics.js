@@ -42,9 +42,12 @@ const streamBoxAnalytics = {
 async function fetchJSON(url) {
 
     const response =
-        await fetch(url, {
-            cache: "no-cache"
-        });
+        await fetch(
+            url,
+            {
+                cache: "no-cache"
+            }
+        );
 
     if (!response.ok) {
 
@@ -69,8 +72,12 @@ async function loadAnalyticsData() {
             analytics,
             recommendations
         ] = await Promise.all([
-            fetchJSON(ANALYTICS_URL),
-            fetchJSON(RECOMMENDATIONS_URL)
+            fetchJSON(
+                ANALYTICS_URL
+            ),
+            fetchJSON(
+                RECOMMENDATIONS_URL
+            )
         ]);
 
 
@@ -91,13 +98,11 @@ async function loadAnalyticsData() {
 
 
         console.log(
-            "StreamBox Python analytics loaded.",
-            streamBoxAnalytics
+            "StreamBox Python analytics loaded."
         );
 
 
         dispatchAnalyticsEvent();
-
 
         updateAnalyticsUI();
 
@@ -127,18 +132,14 @@ async function loadAnalyticsData() {
 
 function dispatchAnalyticsEvent() {
 
-    const event =
+    window.dispatchEvent(
         new CustomEvent(
             "streambox:analytics-ready",
             {
                 detail:
                     streamBoxAnalytics
             }
-        );
-
-
-    window.dispatchEvent(
-        event
+        )
     );
 }
 
@@ -159,13 +160,10 @@ function updateAnalyticsUI() {
 
 
     const summary =
-        analytics.summary ||
-        {};
-
+        analytics.summary || {};
 
     const profile =
-        analytics.user_profile ||
-        {};
+        analytics.user_profile || {};
 
 
     const totalViews =
@@ -177,8 +175,7 @@ function updateAnalyticsUI() {
     if (totalViews) {
 
         totalViews.textContent =
-            summary.total_views ??
-            0;
+            summary.total_views ?? 0;
     }
 
 
@@ -197,13 +194,8 @@ function updateAnalyticsUI() {
     }
 
 
-    const favoriteGenres =
-        profile.favorite_genres ||
-        [];
-
-
     updateRecommendationDescription(
-        favoriteGenres
+        profile.favorite_genres || []
     );
 
 
@@ -274,46 +266,44 @@ function updateAnalyticsCards(
         );
 
 
-    cards.forEach(
-        card => {
+    cards.forEach(card => {
 
-            const metric =
-                card.dataset.analyticsValue;
-
-
-            switch (metric) {
-
-                case "completion":
-
-                    card.textContent =
-                        `${completionRate.toFixed(0)}%`;
-
-                    break;
+        const metric =
+            card.dataset.analyticsValue;
 
 
-                case "watch":
+        switch (metric) {
 
-                    card.textContent =
-                        `${averageWatch.toFixed(0)}%`;
+            case "completion":
 
-                    break;
+                card.textContent =
+                    `${completionRate.toFixed(0)}%`;
+
+                break;
 
 
-                case "views":
+            case "watch":
 
-                    card.textContent =
-                        summary.total_views ??
-                        0;
+                card.textContent =
+                    `${averageWatch.toFixed(0)}%`;
 
-                    break;
-            }
+                break;
+
+
+            case "views":
+
+                card.textContent =
+                    summary.total_views ?? 0;
+
+                break;
         }
-    );
+
+    });
 }
 
 
 /* =========================================================
-   RECOMMENDATION ACCESS
+   PYTHON RECOMMENDATIONS
    ========================================================= */
 
 function getPythonRecommendations() {
@@ -330,8 +320,7 @@ function getPythonRecommendations() {
     return (
         streamBoxAnalytics
             .recommendations
-            .recommendations ||
-        []
+            ?.recommendations || []
     );
 }
 
@@ -361,14 +350,19 @@ function getRecommendedContentIds() {
 
 function getRecommendedContent() {
 
-    const ids =
-        getRecommendedContentIds();
+    const data =
+        window.StreamBoxData;
 
 
-    return ids
+    if (!data) {
+        return [];
+    }
+
+
+    return getRecommendedContentIds()
         .map(
             id =>
-                SB.getContentById(id)
+                data.getContentById(id)
         )
         .filter(Boolean);
 }
@@ -380,19 +374,10 @@ function getRecommendedContent() {
 
 function getAnalyticsSummary() {
 
-    if (
-        !streamBoxAnalytics.analytics
-    ) {
-
-        return null;
-    }
-
-
     return (
         streamBoxAnalytics
             .analytics
-            .summary ||
-        null
+            ?.summary || null
     );
 }
 
@@ -403,18 +388,12 @@ function getAnalyticsSummary() {
 
 function getFavoriteGenres() {
 
-    const profile =
+    return (
         streamBoxAnalytics
             .analytics
-            ?.user_profile;
-
-
-    if (!profile) {
-        return [];
-    }
-
-
-    return profile.favorite_genres || [];
+            ?.user_profile
+            ?.favorite_genres || []
+    );
 }
 
 
@@ -427,8 +406,7 @@ function getContentEngagement() {
     return (
         streamBoxAnalytics
             .analytics
-            ?.content_engagement ||
-        []
+            ?.content_engagement || []
     );
 }
 
@@ -441,16 +419,15 @@ function getRecommendationScore(
     contentId
 ) {
 
-    const recommendations =
-        getPythonRecommendations();
-
-
     const result =
-        recommendations.find(
-            item =>
-                Number(item.content_id) ===
-                Number(contentId)
-        );
+        getPythonRecommendations()
+            .find(
+                item =>
+                    Number(
+                        item.content_id
+                    ) ===
+                    Number(contentId)
+            );
 
 
     return result
@@ -469,20 +446,21 @@ function getRecommendationReason(
     contentId
 ) {
 
-    const recommendations =
-        getPythonRecommendations();
-
-
     const result =
-        recommendations.find(
-            item =>
-                Number(item.content_id) ===
-                Number(contentId)
-        );
+        getPythonRecommendations()
+            .find(
+                item =>
+                    Number(
+                        item.content_id
+                    ) ===
+                    Number(contentId)
+            );
 
 
-    return result?.reason ||
-        "Recommended for you";
+    return (
+        result?.reason ||
+        "Recommended for you"
+    );
 }
 
 
@@ -518,6 +496,7 @@ window.StreamBoxAnalytics = {
 
     getRecommendationReason:
         getRecommendationReason
+
 };
 
 
@@ -531,9 +510,7 @@ if (
 
     document.addEventListener(
         "DOMContentLoaded",
-        () => {
-            loadAnalyticsData();
-        }
+        loadAnalyticsData
     );
 
 } else {
