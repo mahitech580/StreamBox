@@ -2,9 +2,10 @@
 StreamBox
 Python Analytics & Recommendation Engine
 
-This script processes StreamBox viewing data and generates
-analytics/recommendation output that can be consumed by
-the frontend.
+Processes StreamBox viewing data and generates:
+
+- analytics.json
+- recommendations.json
 
 Run:
     python analytics.py
@@ -40,7 +41,7 @@ RECOMMENDATIONS_FILE = OUTPUT_DIR / "recommendations.json"
 
 
 # =========================================================
-# DEFAULT DEMO CONTENT
+# DEMO CONTENT
 # =========================================================
 
 CONTENT = [
@@ -138,7 +139,7 @@ CONTENT = [
 
 
 # =========================================================
-# DEMO VIEWING HISTORY
+# DEMO WATCH HISTORY
 # =========================================================
 
 WATCH_HISTORY = [
@@ -196,23 +197,27 @@ CONTENT_BY_ID = {
 # =========================================================
 
 def safe_mean(values: list[float]) -> float:
-    """Return average or zero for an empty list."""
+    """Return average or zero."""
     return round(mean(values), 2) if values else 0.0
 
 
 def normalize_genre(genre: str) -> str:
-    """Normalize genre names for consistent analysis."""
-    return genre.strip().lower()
+    """Normalize genre for comparison."""
+    return str(genre).strip().lower()
 
 
 def format_genre(genre: str) -> str:
-    """Convert normalized genre into display text."""
-    return genre.title()
+    """Convert genre to display format."""
+    return str(genre).title()
 
 
-def get_content(content_id: int) -> dict[str, Any] | None:
-    """Return content by ID."""
-    return CONTENT_BY_ID.get(int(content_id))
+def get_content(
+    content_id: int,
+) -> dict[str, Any] | None:
+    """Find content by ID."""
+    return CONTENT_BY_ID.get(
+        int(content_id)
+    )
 
 
 # =========================================================
@@ -220,13 +225,14 @@ def get_content(content_id: int) -> dict[str, Any] | None:
 # =========================================================
 
 def calculate_total_views(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> int:
+
     return len(history)
 
 
 def calculate_completion_rate(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> float:
 
     if not history:
@@ -235,42 +241,56 @@ def calculate_completion_rate(
     completed = sum(
         1
         for entry in history
-        if float(entry.get("watch_percent", 0)) >= 90
+        if float(
+            entry.get(
+                "watch_percent",
+                0,
+            )
+        ) >= 90
     )
 
     return round(
         completed / len(history) * 100,
-        2
+        2,
     )
 
 
 def calculate_average_watch_percent(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> float:
 
     percentages = [
-        float(entry.get("watch_percent", 0))
+        float(
+            entry.get(
+                "watch_percent",
+                0,
+            )
+        )
         for entry in history
     ]
 
-    return safe_mean(percentages)
+    return safe_mean(
+        percentages
+    )
 
 
 def calculate_average_user_rating(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> float:
 
     ratings = [
-        float(entry.get("rating", 0))
+        float(entry["rating"])
         for entry in history
         if entry.get("rating") is not None
     ]
 
-    return safe_mean(ratings)
+    return safe_mean(
+        ratings
+    )
 
 
 def calculate_genre_distribution(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> dict[str, int]:
 
     counter: Counter[str] = Counter()
@@ -284,7 +304,10 @@ def calculate_genre_distribution(
         if not content:
             continue
 
-        for genre in content.get("genres", []):
+        for genre in content.get(
+            "genres",
+            [],
+        ):
 
             counter[
                 normalize_genre(genre)
@@ -296,7 +319,7 @@ def calculate_genre_distribution(
 
 
 def calculate_type_distribution(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> dict[str, int]:
 
     counter: Counter[str] = Counter()
@@ -310,8 +333,13 @@ def calculate_type_distribution(
         if not content:
             continue
 
+        content_type = content.get(
+            "type",
+            "unknown",
+        )
+
         counter[
-            content.get("type", "unknown")
+            content_type
         ] += 1
 
     return dict(
@@ -320,7 +348,7 @@ def calculate_type_distribution(
 
 
 def calculate_daily_activity(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> dict[str, int]:
 
     counter: Counter[str] = Counter()
@@ -329,25 +357,33 @@ def calculate_daily_activity(
 
         timestamp = entry.get(
             "watched_at",
-            ""
+            "",
         )
 
         try:
-            date = datetime.fromisoformat(
-                timestamp
-            ).date().isoformat()
+
+            date = (
+                datetime
+                .fromisoformat(timestamp)
+                .date()
+                .isoformat()
+            )
+
         except ValueError:
+
             date = "unknown"
 
         counter[date] += 1
 
     return dict(
-        sorted(counter.items())
+        sorted(
+            counter.items()
+        )
     )
 
 
 def calculate_rating_distribution(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> dict[str, int]:
 
     counter: Counter[str] = Counter()
@@ -357,21 +393,20 @@ def calculate_rating_distribution(
         rating = float(
             entry.get(
                 "rating",
-                0
+                0,
             )
         )
 
-        bucket = (
-            "10"
-            if rating >= 10
-            else "9"
-            if rating >= 9
-            else "8"
-            if rating >= 8
-            else "7"
-            if rating >= 7
-            else "6_or_less"
-        )
+        if rating >= 10:
+            bucket = "10"
+        elif rating >= 9:
+            bucket = "9"
+        elif rating >= 8:
+            bucket = "8"
+        elif rating >= 7:
+            bucket = "7"
+        else:
+            bucket = "6_or_less"
 
         counter[bucket] += 1
 
@@ -383,10 +418,13 @@ def calculate_rating_distribution(
 # =========================================================
 
 def calculate_content_engagement(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
 
-    stats: dict[int, dict[str, Any]] = defaultdict(
+    stats: dict[
+        int,
+        dict[str, Any],
+    ] = defaultdict(
         lambda: {
             "views": 0,
             "watch_percentages": [],
@@ -400,7 +438,9 @@ def calculate_content_engagement(
             entry["content_id"]
         )
 
-        stats[content_id]["views"] += 1
+        stats[content_id][
+            "views"
+        ] += 1
 
         stats[content_id][
             "watch_percentages"
@@ -408,12 +448,14 @@ def calculate_content_engagement(
             float(
                 entry.get(
                     "watch_percent",
-                    0
+                    0,
                 )
             )
         )
 
-        if entry.get("rating") is not None:
+        if entry.get(
+            "rating"
+        ) is not None:
 
             stats[content_id][
                 "ratings"
@@ -444,11 +486,9 @@ def calculate_content_engagement(
 
         engagement_score = round(
             (
-                average_watch * 0.5
-                +
-                content["rating"] * 10 * 0.25
-                +
-                content["popularity"] * 0.25
+                average_watch * 0.50
+                + content["rating"] * 10 * 0.25
+                + content["popularity"] * 0.25
             ),
             2,
         )
@@ -458,19 +498,17 @@ def calculate_content_engagement(
                 "content_id": content_id,
                 "title": content["title"],
                 "views": values["views"],
-                "average_watch_percent":
-                    average_watch,
-                "average_rating":
-                    average_rating,
-                "engagement_score":
-                    engagement_score,
+                "average_watch_percent": average_watch,
+                "average_rating": average_rating,
+                "engagement_score": engagement_score,
             }
         )
 
     return sorted(
         result,
-        key=lambda item:
-            item["engagement_score"],
+        key=lambda item: item[
+            "engagement_score"
+        ],
         reverse=True,
     )
 
@@ -480,23 +518,24 @@ def calculate_content_engagement(
 # =========================================================
 
 def build_user_profile(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> dict[str, Any]:
 
-    genre_distribution =
+    genre_distribution = (
         calculate_genre_distribution(
             history
         )
+    )
 
-    type_distribution =
+    type_distribution = (
         calculate_type_distribution(
             history
         )
+    )
 
     favorite_genres = [
         format_genre(genre)
-        for genre, _ in
-        list(
+        for genre, _ in list(
             genre_distribution.items()
         )[:5]
     ]
@@ -512,22 +551,15 @@ def build_user_profile(
     )
 
     return {
-        "favorite_genres":
-            favorite_genres,
-
-        "favorite_content_type":
-            favorite_type,
-
-        "genre_distribution":
-            genre_distribution,
-
-        "type_distribution":
-            type_distribution,
+        "favorite_genres": favorite_genres,
+        "favorite_content_type": favorite_type,
+        "genre_distribution": genre_distribution,
+        "type_distribution": type_distribution,
     }
 
 
 # =========================================================
-# RECOMMENDATION ENGINE
+# RECOMMENDATION SCORING
 # =========================================================
 
 def calculate_recommendation_score(
@@ -541,30 +573,32 @@ def calculate_recommendation_score(
 
     favorite_genres = {
         normalize_genre(genre)
-        for genre in
-        profile.get(
+        for genre in profile.get(
             "favorite_genres",
-            []
+            [],
         )
     }
 
     matching_genres = sum(
         1
-        for genre in content.get("genres", [])
+        for genre in content.get(
+            "genres",
+            [],
+        )
         if normalize_genre(genre)
         in favorite_genres
     )
 
     genre_score = min(
         matching_genres * 20,
-        40
+        40,
     )
 
     rating_score = (
         float(
             content.get(
                 "rating",
-                0
+                0,
             )
         ) * 4
     )
@@ -573,104 +607,33 @@ def calculate_recommendation_score(
         float(
             content.get(
                 "popularity",
-                0
+                0,
             )
         ) * 0.2
     )
 
-    recency_score = 0
-
-    if int(
-        content.get(
-            "year",
-            0
-        )
-    ) >= 2026:
-        recency_score = 5
+    recency_score = (
+        5
+        if int(
+            content.get(
+                "year",
+                0,
+            )
+        ) >= 2026
+        else 0
+    )
 
     total_score = (
         genre_score
-        +
-        rating_score
-        +
-        popularity_score
-        +
-        recency_score
+        + rating_score
+        + popularity_score
+        + recency_score
     )
 
     return round(
         total_score,
-        2
+        2,
     )
-
-
-def generate_recommendations(
-    content: list[dict[str, Any]],
-    history: list[dict[str, Any]],
-    limit: int = 10,
-) -> list[dict[str, Any]]:
-
-    profile =
-        build_user_profile(
-            history
-        )
-
-    watched_ids = {
-        int(
-            item["content_id"]
-        )
-        for item in history
-    }
-
-    scored = []
-
-    for item in content:
-
-        score =
-            calculate_recommendation_score(
-                item,
-                profile,
-                watched_ids
-            )
-
-        if score <= 0:
-            continue
-
-        scored.append(
-            {
-                "content_id":
-                    int(item["id"]),
-
-                "title":
-                    item["title"],
-
-                "type":
-                    item["type"],
-
-                "rating":
-                    item["rating"],
-
-                "genres":
-                    item["genres"],
-
-                "recommendation_score":
-                    score,
-
-                "reason":
-                    build_recommendation_reason(
-                        item,
-                        profile
-                    ),
-            }
-        )
-
-    scored.sort(
-        key=lambda item:
-            item["recommendation_score"],
-        reverse=True,
-    )
-
-    return scored[:limit]
 
 
 def build_recommendation_reason(
@@ -680,10 +643,9 @@ def build_recommendation_reason(
 
     favorite_genres = {
         normalize_genre(genre)
-        for genre in
-        profile.get(
+        for genre in profile.get(
             "favorite_genres",
-            []
+            [],
         )
     }
 
@@ -691,7 +653,7 @@ def build_recommendation_reason(
         genre
         for genre in content.get(
             "genres",
-            []
+            [],
         )
         if normalize_genre(genre)
         in favorite_genres
@@ -704,11 +666,74 @@ def build_recommendation_reason(
             + ", ".join(matches)
         )
 
-    if content.get("rating", 0) >= 9:
+    if content.get(
+        "rating",
+        0,
+    ) >= 9:
 
         return "Highly rated content"
 
     return "Popular on StreamBox"
+
+
+def generate_recommendations(
+    content: list[dict[str, Any]],
+    history: list[dict[str, Any]],
+    limit: int = 10,
+) -> list[dict[str, Any]]:
+
+    profile = build_user_profile(
+        history
+    )
+
+    watched_ids = {
+        int(
+            item["content_id"]
+        )
+        for item in history
+    }
+
+    scored = []
+
+    for item in content:
+
+        score = (
+            calculate_recommendation_score(
+                item,
+                profile,
+                watched_ids,
+            )
+        )
+
+        if score <= 0:
+            continue
+
+        scored.append(
+            {
+                "content_id": int(
+                    item["id"]
+                ),
+                "title": item["title"],
+                "type": item["type"],
+                "rating": item["rating"],
+                "genres": item["genres"],
+                "recommendation_score": score,
+                "reason":
+                    build_recommendation_reason(
+                        item,
+                        profile,
+                    ),
+            }
+        )
+
+    scored.sort(
+        key=lambda item: item[
+            "recommendation_score"
+        ],
+        reverse=True,
+    )
+
+    return scored[:limit]
 
 
 # =========================================================
@@ -716,7 +741,7 @@ def build_recommendation_reason(
 # =========================================================
 
 def build_dashboard_summary(
-    history: list[dict[str, Any]]
+    history: list[dict[str, Any]],
 ) -> dict[str, Any]:
 
     return {
@@ -740,8 +765,7 @@ def build_dashboard_summary(
             list(
                 calculate_genre_distribution(
                     history
-                )
-                .items()
+                ).items()
             )[:5],
 
         "content_types":
@@ -767,88 +791,64 @@ def build_dashboard_summary(
 
 def generate_output() -> None:
 
-    summary =
-        build_dashboard_summary(
-            WATCH_HISTORY
-        )
+    summary = build_dashboard_summary(
+        WATCH_HISTORY
+    )
 
-    profile =
-        build_user_profile(
-            WATCH_HISTORY
-        )
+    profile = build_user_profile(
+        WATCH_HISTORY
+    )
 
-    engagement =
-        calculate_content_engagement(
-            WATCH_HISTORY
-        )
+    engagement = calculate_content_engagement(
+        WATCH_HISTORY
+    )
 
-    recommendations =
-        generate_recommendations(
-            CONTENT,
-            WATCH_HISTORY,
-            limit=10
-        )
+    recommendations = generate_recommendations(
+        CONTENT,
+        WATCH_HISTORY,
+        limit=10,
+    )
 
+    generated_at = datetime.now().isoformat()
 
     analytics_payload = {
-
-        "generated_at":
-            datetime.now().isoformat(),
-
-        "project":
-            "StreamBox",
-
-        "summary":
-            summary,
-
-        "user_profile":
-            profile,
-
-        "content_engagement":
-            engagement,
-
+        "project": "StreamBox",
+        "generated_at": generated_at,
+        "summary": summary,
+        "user_profile": profile,
+        "content_engagement": engagement,
     }
-
 
     recommendation_payload = {
-
-        "generated_at":
-            datetime.now().isoformat(),
-
-        "profile":
-            profile,
-
-        "recommendations":
-            recommendations,
-
+        "project": "StreamBox",
+        "generated_at": generated_at,
+        "profile": profile,
+        "recommendations": recommendations,
     }
-
 
     with ANALYTICS_FILE.open(
         "w",
-        encoding="utf-8"
+        encoding="utf-8",
     ) as file:
 
         json.dump(
             analytics_payload,
             file,
             indent=4,
-            ensure_ascii=False
+            ensure_ascii=False,
         )
-
 
     with RECOMMENDATIONS_FILE.open(
         "w",
-        encoding="utf-8"
+        encoding="utf-8",
     ) as file:
 
         json.dump(
             recommendation_payload,
             file,
             indent=4,
-            ensure_ascii=False
+            ensure_ascii=False,
         )
-
 
     print(
         "StreamBox analytics generated successfully."
@@ -860,6 +860,10 @@ def generate_output() -> None:
 
     print(
         f"Recommendations: {RECOMMENDATIONS_FILE}"
+    )
+
+    print(
+        f"Recommendations generated: {len(recommendations)}"
     )
 
 
